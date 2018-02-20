@@ -1,21 +1,26 @@
-/*
-	ng-model -->> binds input to variable name
-	ng-model="varName" then $scope."varName" == user input
-	
-	get user input through UI(AngularJS) then feed to server.js to fetch info from database
-*/
-
 (function() {
 	angular
 		.module("myApp")
-		.controller("LoginController", LoginController);
+		.controller("PolicyController", PolicyController)
+		.run(run);
+
+	run.$inject = ["$location", "shareService"];
+		function run($location, shareService) {
+				
+				//To ensure that Get Quote button was used to get here
+				if(shareService.setQuote() != "1") {
+					if($location.path().toLowerCase() === "/policy") {
+						$location.path("/");
+					}
+				}
+				
+		}
 	
-	LoginController.$inject = ["AuthenticationService", "$location", "$http", "$scope", "shareService"];
-	function LoginController(AuthenticationService, $location, $http, $scope,shareService) {
+	PolicyController.$inject = ["AuthenticationService", "$location", "$http", "$scope", "shareService"];
+	function PolicyController(AuthenticationService, $location, $http, $scope,shareService) {
 		var vm 		= this;
 	
 		//isLoggedin();
-	
 		//vm.Login 		= Login;
 		//vm.Register		= Register;
 
@@ -129,37 +134,6 @@
 				alert("Congratulations!\nYou have successfully applied for a Full Protection insurance!");
 			}
 
-		/*
-
-		function Login(param){
-			//Check if user exists in database. Return success if true, else return fail
-			AuthenticationService.Login(param);
-		}
-		
-		function Register(param) {
-			AuthenticationService.Register(param).then(function(){
-				return ({status: "success"});
-			});
-		}
-		
-		function isLoggedin() {
-			//redirect to '/home/All' if user is still logged in
-			if(AuthenticationService.GetCurrentUser().preferredfirstname != "") {
-				return true;
-				//$location.path("/home/All");
-			}
-			else {
-				return false;
-			}
-		}
-		
-		function Index(array, name) {
-			var index = array.map(function(i) {
-				return i.name;
-			}).indexOf(name);
-			
-			return index;
-		}
-		*/
+	
 	};
 })();

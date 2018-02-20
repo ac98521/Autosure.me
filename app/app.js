@@ -51,22 +51,23 @@
 	       		shareService.setMaker($scope.selectedModel.car_make);
 				shareService.setModel($scope.selectedModel.car_model);
 				shareService.setYear($scope.selectedYear);
-	       		if($location.path() != "/login"){
-	       			$location.path("/login");
+	       		if($location.path() != "/policy"){
+	       			$location.path("/policy");
 	       			console.log($location.path());
 	       		}
 	       		else{
 	       			console.log(shareService.getModel());	
 	       			$route.reload();
 	       		}
-				
+
+				shareService.setQuote();
 				
 			}
 
 			function Logout() {
 				AuthenticationService.Logout();
 					$rootScope.user.preferredfirstname = "";
-					$location.path("/login");
+					$location.path("/policy");
 			}
 			
 			function Reports() {
@@ -230,9 +231,9 @@
 					}
 				})
 				
-				.when("/login", {
-					templateUrl		: "app/components/login/login.html",
-					controller		: "LoginController",
+				.when("/policy", {
+					templateUrl		: "app/components/policy/policy.html",
+					controller		: "PolicyController",
 					controllerAs	: "vm",
 					
 					//noAuth			: true
@@ -251,39 +252,4 @@
 			$locationProvider.html5Mode(true);
 		}
 		
-		/*
-		run.$inject = ["$location", "AuthenticationService", "$rootScope"];
-		function run($location, AuthenticationService, $rootScope) {
-			$rootScope.$on("$routeChangeStart", function(event, next) {
-				$rootScope.user = AuthenticationService.GetCurrentUser();
-				
-				//Use roles to control page requests?
-				//Regular user(i.e the ones who see the notification) should not be able to view other pages except the notification page
-
-				//Logged out
-					//1.User shouldn't be able to request any page except login page
-					//2.All requests to other pages are redirected to login page
-					//3.After logging in, redirect user to originally requested page
-					
-				//Logged in
-					//1.User is able to view pages requested normally
-					//2.Requesting login page redirects to 'home/All'
-				
-				//Logged in
-				if(AuthenticationService.isLoggedIn()) {
-					if($location.path().toLowerCase() === "/login") {
-						//redirect to 'home/All'
-						$location.path("/home/All");
-					}
-				}
-				//Logged out
-				else {
-					if($location.path().toLowerCase() != "/login") {
-						AuthenticationService.saveUrl();
-					}
-					$location.path("/");
-				}
-				
-			});
-		}*/
 })();

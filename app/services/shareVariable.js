@@ -6,6 +6,8 @@
 		.module("myApp")
 		.service('shareService', function () {
 		    var service = this;
+		    service.setQuote = setQuote;
+		    service.getQuote = getQuote;
 		    service.setMaker = setMaker;
 		    service.getMaker = getMaker;
 		    service.setModel = setModel;
@@ -17,6 +19,14 @@
 		    service.year = "";
 
 		    //function declarations
+			function setQuote() {
+				quote = "1";
+			}
+
+			function getQuote() {
+				return quote;
+			}
+
 		    function setMaker(data) {
 				maker = data;
 			}

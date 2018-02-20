@@ -532,7 +532,7 @@ router.route("/fetchBpNotif")
 	});
 
 //login route
-router.route("/login")
+router.route("/policy")
 	.get(function(req, res) {
 		//render notification html
 		res.sendfile("index.html");
