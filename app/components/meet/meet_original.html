@@ -1,0 +1,198 @@
+<div>
+	<!--ACTION BAR-->
+	<nav class="navbar navbar-inverse" style="background: #3b5998" ng-hide="vm.meet.SF_MeetingStatus ==='Completed'">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+		  <ul class="nav navbar-nav">
+			<li><a href="" ng-click="vm.Process(vm.meet)" ng-show="vm.meet.SF_MeetingStatus==='Draft'">Complete & Close</a></li>
+			<li><a href="" ng-click="vm.Process(vm.meet)" ng-show="vm.meet.SF_MeetingStatus==='Pending'">Sign Off</a></li>
+			<li><a href="" ng-click="vm.Save(vm.meet)" ng-show="vm.meet.SF_MeetingStatus==='Draft'">Save as Draft</a></li>
+		  </ul>
+		</div>
+	  </div>
+	</nav>
+	
+	<span class="col-md-1"></span>
+	<div class="container-fluid">
+		<form class="form-horizontal">
+			<table  style="border: none;" class="table table-bordered">
+				<thead>
+					<th class="col-xs-1" style="border: none;"></th>
+					<th class="col-xs-11" style="border: none;"></th>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="border: none;"><img src="../resources/ibm.png" alt="IBM"></td>
+						<td style="font-size: 24px; border: none;">{{vm.meet.SF_SessionType}} Meeting Results ({{vm.meet.SF_MeetingStatus}})</td>
+					</tr>
+					<tr>
+						<td style="border: none;"></td>
+						<td style="border: none;"></td>
+					</tr>
+				</tbody>
+			</table>			
+			
+			<ul class="nav nav-pills">
+				<li class="active"><a data-toggle="pill" href data-target="#meetingdetails">Meeting Details</a></li>
+				<li><a data-toggle="pill" href data-target="#meetingresults">Meeting Results</a></li>
+				<li><a data-toggle="pill" href data-target="#historylog">History Log</a></li>
+			 </ul>
+			
+			<div class="form-group"></div> <!--spacer-->
+			
+			<div class="tab-content">
+			
+				<div id="meetingdetails" class="tab-pane fade in active">
+						<div class="form-group">
+							<label class="control-label col-sm-2">Meeting Number:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="vm.meet.F_IDExecMeeting" readonly>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-sm-2">Meeting Category:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="vm.meet.F_MeetingCategory" ng-disabled="vm.meet.SF_MeetingStatus != 'Draft'">
+							</div>
+						</div>
+						
+						<!--ng-repeat here for set of users
+							*Check for possible issues?
+																-->
+						<div ng-repeat="participant in vm.meet.Participants">
+						<div class="form-group">
+							<label class="control-label col-sm-2">Employee Number:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="participant.F_EmployeeNumber"  ng-disabled="vm.meet.SF_MeetingStatus != 'Draft'">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-sm-2">Employee Name:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="participant.F_EmployeeName"  ng-disabled="vm.meet.SF_MeetingStatus != 'Draft'" >
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-sm-2">Business Title:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="participant.F_EmployeeBusinessTitle"  ng-disabled="vm.meet.SF_MeetingStatus != 'Draft'">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-sm-2">Department Code:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="participant.F_EmployeeDept"  ng-disabled="vm.meet.SF_MeetingStatus != 'Draft'">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-sm-2">Contact Number:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="participant.F_EmployeeContactNo"  ng-disabled="vm.meet.SF_MeetingStatus != 'Draft'">
+							</div>
+						</div>
+						</div>
+						<!-- insert end of ng-repeat div here-->
+				</div>
+				
+				<div id="meetingresults" class="tab-pane fade">
+					
+
+					<div class="form-group">
+						<label class="control-label col-sm-2">Interview Date:</label>
+						<div class="col-sm-9">
+							<div datepicker datepicker-class="test-custom-class" date-format="longDate">
+					    		<input ng-model="vm.meet.F_InterviewDate" type="text" class="angular-datepicker-input form-control" ng-model="vm.meet.F_InterviewDate" ng-disabled="vm.meet.SF_MeetingStatus != 'Draft'" readonly/>
+					    	</div>
+						</div>
+					</div>
+
+
+					<!--div class="form-group">
+						<label class="control-label col-sm-2">Interview Date:</label>
+						<div class="col-sm-9">
+							<input type="text" placeholder="January 1, 2017" class="form-control"  ng-model="vm.meet.F_InterviewDate"  ng-disabled="vm.meet.SF_MeetingStatus != 'Draft'">
+						</div>
+					</div-->
+					
+					<div class="form-group">
+						<label class="control-label col-sm-2">Executive Name:</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="vm.meet.F_ExecutiveName"  ng-disabled="vm.meet.SF_MeetingStatus != 'Draft'">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-sm-2">Delegate Name:</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="vm.meet.F_DelegateName"  ng-disabled="vm.meet.SF_MeetingStatus != 'Draft'">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-sm-2">Comments:</label>
+						<div class="col-sm-9">
+							<!--input type="text" class="form-control"-->
+							<textarea rows="4" style="width:100%"  ng-model="vm.meet.F_Comments"  ng-disabled="vm.meet.SF_MeetingStatus != 'Draft'"></textarea>
+						</div>
+					</div>
+					
+					<hr style="background:#000000; border:0; height:2px" />
+					
+					<div class="container-fluid">
+						<!-- 
+							-> save doc as draft first
+							-> open and pre-populate result form
+							-> on close of result form, re-route to meet doc?
+						-->
+						
+						<a class="btn btn-primary btn-outline-primary btn-sm" href="" ng-click="vm.AddResult(vm.meet)" ng-hide="vm.meet.SF_MeetingStatus != 'Draft'">Add Result</a>
+						<div class="form-group"></div>
+						
+						<ul class="list-group">
+							<li class="list-group-item" ng-show="vm.result.status === 'fail'">No results added</li>
+						</ul>
+						
+						<table class="table table-hover" ng-hide="vm.result.status === 'fail'">
+							<thead>
+							  <tr>
+								<th>Question/Concern</th>
+								<th>Question Type</th>
+								<th>Answer</th>
+								<th>Action Required?</th>
+							  </tr>
+							</thead>
+							<tbody>
+							  <tr ng-repeat="res in vm.result.results" ng-click="vm.OpenDocument(res._id)">
+								<td>{{res.IQuestion}}</td>
+								<td>{{res.IAnswerType}}</td>
+								<td>{{res.IAnswer}}</td> <!-- loop through participants-->
+								<td>{{res.isActionNeeded}}</td>
+							  </tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<div id="historylog" class="tab-pane fade">
+				  <h3>History Log</h3>
+				  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+				</div>
+				
+			</div>
+		</form>
+	</div>
+	
+	<span class="col-md-1"></span>
+</div>

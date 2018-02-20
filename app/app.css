@@ -1,0 +1,35 @@
+body {
+   background-image: url("https://i.imgur.com/DmJMCno.gif");
+   background-size:cover ;
+ }
+
+.carselect{
+	border-radius: 5px;
+	box-shadow: inset 0 0 10px #000000;
+	background-color: #ffffff;
+}
+
+.formPolicy{
+	display: flex;
+	flex-flow: column nowrap;
+	border-right: 1px solid rgb(52, 58, 64);
+	border-top: 1px solid rgb(52, 58, 64);
+	border-bottom: 1px solid rgb(52, 58, 64);
+	border-radius: 5px;
+	box-shadow: inset 0 0 10px #000000;
+}
+
+.formAdon{
+	display: flex;
+	flex-flow: column nowrap;
+	flex-grow: 1;
+	flex-shrink: 0;
+	flex-basis: auto;
+	align-self:auto;
+	min-width: 0px;
+	min-height: auto;
+}
+
+.formAdon label{
+	display: block;
+}

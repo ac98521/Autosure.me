@@ -1,0 +1,53 @@
+<div>
+	<!--ACTION BAR-->
+	<nav class="navbar navbar-inverse" style="background: #3b5998" ng-hide="vm.result.showRevise === 'Y' || vm.result.hide === 'true'">
+		<div class="collapse navbar-collapse" id="myNavbar">
+				
+			<ul class="nav navbar-nav">
+				<li><a href="" ng-click="vm.SaveandClose(vm.config)">Save</a></li>
+			</ul>
+		</div>
+	</nav>
+	
+	<span class="col-md-1"></span>
+
+	<div class="container-fluid" ng-hide="vm.result.hide === 'true'">
+		<table  style="border: none;" class="table table-bordered">
+			<thead>
+				<th class="col-xs-1" style="border: none;"></th>
+				<th class="col-xs-11" style="border: none;"></th>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border: none;"><img src="../resources/ibm.png" alt="IBM"></td>
+					<td style="font-size: 24px; border: none;">Configuration Document</td>
+				</tr>
+				<tr>
+					<td style="border: none;"></td>
+					<td style="border: none;"></td>
+				</tr>
+			</tbody>
+		</table>	
+		
+		<form class="form-horizontal">
+			<div class="form-group"></div> <!--spacer-->
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2">Keyword:</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="vm.config.keyword">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2">Values:
+					<br><font style="font-size:12px;">(one per line)</font>
+				</label>
+				<div class="col-sm-9">
+					<!-- <input type="text" class="form-control" ng-model="vm.config.value"> -->
+					<textarea ng-model="vm.config.value" style="width: 100%" rows="1"></textarea>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

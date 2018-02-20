@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<title>Autosure.Me</title>
+		<link rel="stylesheet" href="../app/app.css"/>
+		 <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+		<!--720kb.datepicker CSS-->
+		<link href="../node_modules/angularjs-datepicker/src/css/angular-datepicker.css" rel="stylesheet" type="text/css" />
+		
+
+		<!--link rel="stylesheet" type="text/css" href="styles.css"-->
+		<base href="/">
+	</head>
+	
+	<body>
+		<!--TEST-->
+		
+		<div class="well" ng-controller="MainController as vm">
+
+				<div class="row" style= "margin:0;">		
+					<div class = "col-3">
+					<form class = "carselect container border border-dark " style="min-width:360.25px;">
+						<!--<div class="">-->
+						<div class="d-flex justify-content-center bg-dark text-white">
+							<h3>Choose your car insurance</h3>
+						</div>
+						<div class="d-flex justify-content-center">
+							<p>Please carefully select the year, maker and model before clicking Quote button</p>
+						</div>
+				
+						<div class="form-group row container">
+							<label class="col-5 col-form-label" for="selectedYear">Serial Year:</label>
+							<select class="col" id="selectedYear"ng-model="selectedYear" ng-options="x for x in YearSelection"></select>
+						</div>
+						
+						<div class="form-group row container">
+							<label class="col-5 col-form-label" for="selectedYear">Serial Maker:</label>
+							<select class="col" id="selectedYear" ng-model="selectedMaker" ng-options="x.car_make for x in Maker" ng-change = updateModel(selectedMaker)></select>
+						</div>
+
+						<div class="form-group row container">
+							<label class="col-5 col-form-label" for="selectedYear">Serial Model:</label>
+							<select class="col" id="selectedYear" ng-model="selectedModel" ng-options="x.car_model for x in Model"></select>
+						</div>
+						
+						<div class="form-group d-flex justify-content-center">
+							<button class="btn btn-primary" ng-hide = "selectedModel === undefined || selectedMaker === undefined || selectedModel === null " ng-click="vm.Quote(selectedModel)">Get a Quote</button>
+								<!--<h4 class="panel-title">
+									<a href="/HowToUse">login</a>
+								</h4>-->
+							
+						</div>
+					<!--</div>-->
+					</form>
+					</div>
+					
+					<!--div class="col-sm-1" style="width: 4.165%"></div-->
+					<div class="col container-fluid justify-content-center row" style=" height: 100%;padding:0;margin:0;width:100%; background: #FFFFFF" ng-view></div>
+				</div>
+			<!--</div>			-->
+		</div>
+		
+		<!--LIBRARIES-->		
+		<!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script-->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
+		<script src="../node_modules/angular-filter/dist/angular-filter.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-route.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-cookies.js"></script>
+
+		<!-- Thanks to 720kb -->
+		<script src="../node_modules/angularjs-datepicker/src/js/angular-datepicker.js"></script> <!--DATEPICKER LIBRARY-->
+
+		<!--Angular Modal Service-->
+		<!-- thanks to dwmkerr -->
+		<!-- http://www.dwmkerr.com/the-only-angularjs-modal-service-youll-ever-need/ -->
+		<script src="../node_modules/angular-modal-service/dst/angular-modal-service.js"></script> <!--modal library-->
+		<script src="../node_modules/checklist-model/checklist-model.js"></script> <!--checklist model library-->
+		
+		<!--CONTROLLERS-->
+		<script src="../app/app.js" type="text/javascript"></script>
+		<script src="../app/components/home/home.controller.js"></script>
+		<script src="../app/components/meet/meet.controller.js"></script>
+		<script src="../app/components/result/result.controller.js"></script>
+		<script src="../app/components/notification/notification.controller.js"></script>
+		<script src="../app/components/login/login.controller.js"></script>
+		<script src="../app/components/configdoc/configdoc.controller.js"></script>
+		<script src="../app/components/dialog/DialogBoxController.js"></script>
+		
+		<!--SERVICES-->
+		<script src="../app/services/document.service.js"></script>
+		<script src="../app/services/sfq.service.js"></script>
+		<script src="../app/services/counter.service.js"></script>
+		<script src="../app/services/notification.service.js"></script>
+		<script src="../app/services/authentication.service.js"></script>
+		<script src="../app/services/user.service.js"></script>
+		<script src="../app/services/shareVariable.js"></script>
+	</body>
+</html>

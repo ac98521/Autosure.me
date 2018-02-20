@@ -1,0 +1,158 @@
+<div>
+	<!--ACTION BAR-->
+	<nav class="navbar navbar-inverse" style="background: #3b5998" ng-hide="vm.result.F_ResultStatus === 'Closed' || vm.result.showRevise === 'N'">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav">
+				<li><a href="" ng-click="vm.SaveAndClose(vm.result)" ng-show="vm.result.F_ResultStatus=='Draft'">Save & Close</a></li>
+				<li><a href="" ng-show="vm.result.F_ResultStatus==='Pending Acceptance'" ng-click="vm.Accept(vm.result)">Accept</a></li>
+				<li><a href="" ng-show="vm.result.F_ResultStatus==='Pending Acceptance'" ng-click="vm.Revise(vm.result)">Revise</a></li>
+			</ul>
+		</div>
+	  </div>
+	</nav>
+	
+	<span class="col-md-1"></span>
+	<div class="container-fluid">
+		<table  style="border: none;" class="table table-bordered">
+			<thead>
+				<th class="col-xs-1" style="border: none;"></th>
+				<th class="col-xs-11" style="border: none;"></th>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border: none;"><img src="../resources/ibm.png" alt="IBM"></td>
+					<td style="font-size: 24px; border: none;">Result for {{vm.result.F_ExecDisplay}}</td>
+				</tr>
+				<tr>
+					<td style="border: none;"></td>
+					<td style="border: none;"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<form class="form-horizontal">
+			
+			<div><h3>Result Details</h3></div>
+			<div class="form-group"></div> <!--spacer-->
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2">Status:</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="vm.result.F_ResultStatus" readonly>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2">Question/Concern:</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="vm.result.IQuestion" ng-disabled="vm.result.F_ResultStatus != 'Draft'" required>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2">Question/Concern Type:</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="vm.result.IAnswerType" ng-disabled="vm.result.F_ResultStatus != 'Draft'" required>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2">Answer:</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="vm.result.IAnswer" ng-disabled="vm.result.F_ResultStatus != 'Draft'" required>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2">Action Needed?:</label>
+				<div class="col-sm-9">
+					<span class="col-sm-2"><input type="radio" value="Yes" name="actionNeeded" ng-model="vm.result.isActionNeeded" ng-disabled="vm.result.F_ResultStatus != 'Draft'">Yes</span>
+					<span class="col-sm-2"><input type="radio" value="No" name="actionNeeded" ng-model="vm.result.isActionNeeded" ng-disabled="vm.result.F_ResultStatus != 'Draft'">No</span>
+				</div>
+			</div>
+			
+			<!--show if pending-->
+			<!--END-->
+			
+			<div ng-show="vm.result.isActionNeeded === 'Yes'">
+			
+				<div class="form-group"></div> <!--spacer-->
+				<div><h3>Required Action</h3></div>
+				<div class="form-group"></div> <!--spacer-->
+				
+				<div class="form-group">
+					<label class="control-label col-sm-2">Action Owner CNUM:</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" placeholder="123456"  ng-model="vm.result.ActionOwner" ng-disabled="vm.result.F_ResultStatus != 'Draft'">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-sm-2">Deadline:</label>
+					<div class="col-sm-9">
+						<div datepicker datepicker-class="test-custom-class" date-format="longDate">
+				    		<input ng-model="vm.result.ActionDeadline" type="text" class="angular-datepicker-input form-control"  ng-disabled="vm.result.F_ResultStatus != 'Draft'" readonly>
+				    	</div>
+					</div>
+				</div>
+
+				<!--div class="form-group">
+					<label class="control-label col-sm-2">Deadline:</label>
+					<div class="col-sm-9">
+						<input type="text" placeholder="Ex. January 1, 2017" class="form-control" ng-model="vm.result.ActionDeadline" ng-disabled="vm.result.F_ResultStatus != 'Draft'">
+					</div>
+				</div-->
+				
+				<div class="form-group" ng-hide="vm.result.ActionClosedDate===null">
+					<label class="control-label col-sm-2">Actual Closed Date:</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" ng-model="vm.result.ActionClosedDate" readonly>
+					</div>
+				</div>
+				
+				<div class="form-group" ng-hide="vm.result.F_ResultStatus === 'Draft' || vm.result.showRevise === 'Y' || vm.result.PrevActionSolution === ''">
+					<label class="control-label col-sm-2">Current Solution:</label>
+					<div class="col-sm-9">
+						<textarea rows="4" style="width:100%"  ng-model="vm.result.PrevActionSolution" disabled></textarea>
+						<!--input type="text" class="form-control" ng-model="vm.result.PrevActionSolution" readonly-->
+					</div>
+				</div>
+				
+				<div class="form-group" ng-hide="vm.result.ActionClosedDate===null">
+					<label class="control-label col-sm-2">Solution:</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" ng-model="vm.result.ActionSolution" readonly>
+					</div>
+				</div>
+
+				<!--div class="form-group" ng-hide="vm.result.F_ResultStatus != 'Pending Acceptance' || vm.result.ActionSolution === '' || vm.result.PrevActionSolution === '' || vm.result.F_Deadline === ''">
+					<label class="control-label col-sm-2">New Deadline:</label>
+					<div class="col-sm-9">
+						<div datepicker datepicker-class="test-custom-class" date-format="longDate">
+				    		<input type="text" class="angular-datepicker-input form-control" ng-model="vm.result.F_Deadline" ng-disabled="vm.result.showRevise === 'N'" readonly/>
+				    	</div>
+					</div>
+				</div-->
+				
+				<!-- change comment field hide logic-->
+				<!--div class="form-group" ng-hide="vm.result.F_ResultStatus != 'Pending Acceptance' || vm.result.ActionSolution === ''"-->
+				<div class="form-group" ng-hide="vm.result.F_ResultStatus === 'Draft' || vm.result.F_Comments === ''">
+					<label class="control-label col-sm-2">Reason:</label>
+					<div class="col-sm-9">
+						<textarea rows="4" style="width:100%"  ng-model="vm.result.F_Comments" disabled></textarea> <!--require this field before revise-->
+					</div>
+				</div>
+			</div>
+				
+		</form>
+	</div>
+	<span class="col-md-1"></span>
+</div>

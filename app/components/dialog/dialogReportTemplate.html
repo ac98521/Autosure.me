@@ -1,0 +1,84 @@
+<div class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>Select Report</p>
+
+    <form class="form-horizontal" role="form">
+      <label class="control-label col-sm-2">Meeting Type:</label>
+      <div class="form-group">
+        <div class="col-sm-9">
+          <span class="col-sm-3"><input type="radio" value="All" ng-model="report_meetingType">All</span>
+          <span class="col-sm-3"><input type="radio" value="Executive" ng-model="report_meetingType">Executive</span>
+          <span class="col-sm-3"><input type="radio" value="Roundtable" ng-model="report_meetingType">Roundtable</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-sm-2">Status:</label>
+        <div class="col-sm-9">
+          <span class="col-sm-3"><input type="radio" value="All" ng-model="report_status">All</span>
+          <span class="col-sm-3"><input type="radio" value="Pending" ng-model="report_status">Pending</span>
+          <span class="col-sm-3"><input type="radio" value="Completed" ng-model="report_status">Completed</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-sm-2">Date:</label>
+        <div class="col-sm-9">
+          <span class="col-sm-3"><input type="radio" value="All" ng-model="report_date">All</span>
+          <span class="col-sm-3"><input type="radio" value="Range" ng-model="report_date">Range</span>
+        </div>
+      </div>
+
+      <p>Optional filters</p>
+
+      <!--div class="form-group">
+        <label class="control-label col-sm-2">Author:</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" ng-model="report_author">
+        </div>
+      </div-->
+
+      <div class="form-group">
+        <label class="control-label col-sm-2">Executive:</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" ng-model="report_executive">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-sm-2">Delegate:</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" ng-model="report_delegate">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-sm-2">Interviewee:</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" ng-model="report_interviewee">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-sm-2">Department Code:</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" ng-model="report_department">
+        </div>
+      </div>
+
+    </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="report_close()" class="btn btn-primary" data-dismiss="modal">OK</button>
+        <button type="button" ng-click="cancel()" class="btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<!--<div class="">	-->
+
+	<form class=" container col-sm formPolicy">
+		
+		<div class="form-group bg-dark text-white d-flex justify-content-center">
+			<h3>CPTL</h3>
+		</div>
+		
+		<label class="col-form-label"><span class="font-weight-bold">Amount: </span> Php {{vm.CPTLPrice}}</label>
+
+		<details open="" class="form-group" >	
+			<summary class="col-form-label font-weight-bold">Coverage</summary>
+			<ul class="list-group">
+		        <li  class="list-group-item" ng-repeat="x in coverageCPTL">{{x}}</li>
+		    </ul>
+		</details>
+
+		<label class="col-form-label font-weight-bold">Add-ons</label>
+
+		<div class="form-check container formAdon" >
+
+			<label class=" form-check-label " ng-repeat="addon in vm.addons" >
+            	<input class="form-check-input" type="checkbox" checklist-model="vm.user.SelectedAddOns" checklist-value="addon" ng-click = vm.updateCPTL(addon)> {{addon.name}}
+            </label>
+
+		</div>
+
+		<div class="form-group d-flex justify-content-center">
+			<button class="btn btn-primary" ng-click="vm.SendQuote1()">Send Quote</button>
+		</div>
+		
+	</form>
+
+	<form class="col-sm formPolicy">
+		
+		<div class="form-group bg-dark text-white d-flex justify-content-center">
+			<h3>Comprehensive</h3>
+		</div>
+
+		<label class="col-form-label"><span class="font-weight-bold">Amount: </span> Php {{vm.CompPrice}}</label>
+
+		<details open="" class="form-group" >	
+			<summary class="col-form-label font-weight-bold">Coverage</summary>
+			<ul class="list-group">
+		        <li  class="list-group-item" ng-repeat="x in coverageComp">{{x}}</li>
+		    </ul>
+		</details>
+
+		<label class="col-form-label font-weight-bold">Add-ons</label>
+
+		<div class="form-check container formAdon">
+			<label class="form-check-label " ng-repeat="addon in vm.addons" >
+            	<input class="form-check-input" type="checkbox" checklist-model="vm.user.SelectedAddOnsComp" checklist-value="addon" ng-click = vm.updateComp(addon)> {{addon.name}}
+            </label>
+			
+		</div>
+		
+		<div class="form-group d-flex justify-content-center">
+			<button class="btn btn-primary" ng-click="vm.SendQuote2()">Send Quote</button>
+		</div>
+		
+	</form>
+
+	<form class="col-sm formPolicy">
+		
+		<div class="form-group bg-dark text-white d-flex justify-content-center">
+			<h3>Full Protection</h3>
+		</div>
+
+		<label class="col-form-label"><span class="font-weight-bold">Amount: </span> Php {{vm.FullPrice}}</label>
+		
+		<details open="" class="form-group" >	
+			<summary class="col-form-label font-weight-bold">Coverage</summary>
+			<ul class="list-group">
+		        <li  class="list-group-item" ng-repeat="x in coverageFull">{{x}}</li>
+		    </ul>
+		</details>
+
+		<label class="col-form-label font-weight-bold">Add-ons</label>
+
+		<div class="form-check container formAdon" >
+
+			<label class=" form-check-label " ng-repeat="addon in vm.addons" >
+            	<input class="form-check-input" type="checkbox" checklist-model="vm.user.SelectedAddOnsFull" checklist-value="addon" ng-click = vm.updateFull(addon)> {{addon.name}}
+            </label>
+
+		</div>
+		
+		<div class="form-group d-flex justify-content-center">
+			<button class="btn btn-primary" ng-click="vm.SendQuote3()">Send Quote</button>
+		</div>
+		
+	</form>
+<!--</div>-->

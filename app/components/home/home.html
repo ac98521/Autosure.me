@@ -1,0 +1,103 @@
+<div>
+	<nav class="navbar navbar-inverse" style="background: #3b5998">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="ViewNavbar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <a class="navbar-brand">{{vm.data.viewname}}</a>
+		</div>
+		<div class="collapse navbar-collapse" id="ViewNavbar">
+			<ul ng-hide="vm.data.query === 'Configuration' || vm.data.query === 'EventLogs'" class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="">
+						<span class="glyphicon glyphicon-file"></span> Create
+					<span class="caret"></span></a>					
+					<ul class="dropdown-menu">
+						<li><a href="" ng-click="vm.New('Executive')">Executive Interview Results</a></li>
+						<li><a href="" ng-click="vm.New('Roundtable')">Roundtable Meeting Results</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	  </div>
+	</nav>
+
+	<ul class="list-group" ng-show="vm.data.status === 'fail'">
+		<li class="list-group-item">No documents match the query</li>
+	</ul>
+	
+	<table class="table table-hover" ng-hide="vm.data.status === 'fail'">
+		<thead>
+		  <tr>
+			<!--th ng-hide="vm.data.query === 'Configuration'"><a ng-click="vm.sortBy('F_IDExecMeeting')">Exec. Meeting No.</a></th-->
+
+			<!--th ng-hide="vm.data.query === 'Executive_byExecutive' || vm.data.query === 'Roundtable_byChair' || vm.data.query === 'Draft' || vm.data.query === 'Pending' || vm.data.query === 'Completed'">Executive</th> -->
+
+			<th ng-hide="vm.data.query === 'Configuration'">Exec. Meeting No.</th>
+
+			<th ng-show="vm.data.query === 'Draft' || vm.data.query === 'Pending' || vm.data.query === 'Completed'">Executive/Chairman</th>
+
+			<th ng-show="vm.data.query === 'Executive' || vm.data.query === 'Executive_byInterviewee' || vm.data.query === 'Executive_byStatus'">Executive</th>
+
+			<th ng-show="vm.data.query === 'Roundtable' || vm.data.query === 'Roundtable_byParticipant' || vm.data.query === 'Roundtable_byStatus'">Chairman</th>
+
+			
+			<!-- <th ng-hide="vm.data.query === 'Executive_byInterviewee' || vm.data.query === 'Roundtable_byParticipant' || vm.data.query === 'Draft' || vm.data.query === 'Pending' || vm.data.query === 'Completed'">Interviewee</th> -->
+
+			<th ng-show="vm.data.query === 'Draft' || vm.data.query === 'Pending' || vm.data.query === 'Completed'">Interviewee/Partcipants</th>
+
+			<th ng-show="vm.data.query === 'Executive' || vm.data.query ==='Executive_byExecutive' || vm.data.query === 'Executive_byStatus'">Interviewee</th>
+
+			<th ng-show="vm.data.query === 'Roundtable' || vm.data.query ==='Roundtable_byChair' || vm.data.query === 'Roundtable_byStatus'">Participants</th>
+
+			<th ng-hide="vm.data.query === 'Configuration'">Interview Date</th>
+
+			<th ng-hide="vm.data.query === 'Draft' || vm.data.query === 'Pending' || vm.data.query === 'Completed' || vm.data.query === 'Executive_byStatus' || vm.data.query === 'Roundtable_byStatus' || vm.data.query === 'Configuration'">Status</th>
+		  
+		  	<th ng-show="vm.data.query === 'Configuration'">Keyword</th>
+		  	<th colspan='2' ng-show="vm.data.query === 'Configuration'">Value(s)</th>
+		  </tr>
+		</thead>
+
+		<!--need to install angular-filter to sort ng-repeat-->
+		<tbody ng-hide="vm.data.query === 'Executive' || vm.data.query === 'Roundtable'" ng-repeat="(meetingType, docs) in vm.data.meets | groupBy: vm.data.filter">
+			<tr ng-init="showRow = false" ng-click="showRow =!showRow">
+				<th colspan="5"><font color="#3b5998"><span ng-show="!showRow" class="glyphicon glyphicon-plus-sign"></span><span ng-show="showRow" class="glyphicon glyphicon-minus-sign"></span> {{meetingType}}</font></th>
+			</tr>
+			<tr ng-show="showRow" ng-repeat="doc in docs | orderBy: vm.sorting.property : vm.sorting.reverse" ng-click="vm.OpenDocument(doc._id)">
+				<td>{{doc.F_IDExecMeeting}}</td>
+				<td  ng-hide="vm.data.query === 'Executive_byExecutive' || vm.data.query === 'Roundtable_byChair'">{{doc.F_ExecutiveName}}</td>
+				<td ng-hide="vm.data.query === 'Executive_byInterviewee' || vm.data.query === 'Roundtable_byParticipant'" ng-show="vm.data.query != 'Roundtable_byParticipant'">
+					<div ng-repeat="participant in doc.Participants">{{participant.F_EmployeeName}}</div>
+				</td>
+				<td>{{doc.F_InterviewDate | date: longDate}}</td>
+				<td ng-hide="vm.data.query === 'Draft' || vm.data.query === 'Pending' || vm.data.query === 'Completed' || vm.data.query === 'Executive_byStatus' || vm.data.query === 'Roundtable_byStatus'">{{doc.SF_MeetingStatus}}</td>
+			</tr>
+		</tbody>
+
+		<tbody ng-show="vm.data.query === 'Executive' || vm.data.query === 'Roundtable'">
+			<tr ng-repeat="doc in vm.data.meets | orderBy: vm.sorting.property : vm.sorting.reverse"  ng-click="vm.OpenDocument(doc._id)">
+				<td>{{doc.F_IDExecMeeting}}</td>
+				<td>{{doc.F_ExecutiveName}}</td>
+				<td>
+					<div ng-repeat="participant in doc.Participants">{{participant.F_EmployeeName}}</div>
+				</td>
+				<td>{{doc.F_InterviewDate | date: longDate}}</td>
+				<td>{{doc.SF_MeetingStatus}}</td>
+			</tr>
+		</tbody>
+
+		<tbody>
+			<tr ng-repeat="configdoc in vm.data.configdocs" ng-click="vm.OpenConfig(configdoc._id)">
+				<td>{{configdoc.keyword}}</td>
+				<td>
+					{{configdoc.value}}
+					<!--div ng-repeat="val in configdoc.value">{{val}}</div-->
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
